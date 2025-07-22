@@ -9,6 +9,9 @@
  * 5. Refresh the page
  */
 
+// Debug: Check if this file is loading
+console.log('config.js is loading...');
+
 // Replace this with your actual OpenAI API key
 const OPENAI_API_KEY = 'your-openai-api-key-here';
 
@@ -18,6 +21,9 @@ const AI_CONFIG = {
   max_tokens: 500,
   temperature: 0.7
 };
+
+// Debug: Log the configuration
+console.log('Config loaded:', { OPENAI_API_KEY, AI_CONFIG });
 
 // Export for use in app.js
 if (typeof module !== 'undefined' && module.exports) {

@@ -803,9 +803,9 @@ function resetToPromptScreen() {
 
 /**
  * Configuration
- * Uses config.js for API key and settings
+ * Uses Vercel API for secure OpenAI calls
  */
-const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
+const API_URL = '/api/openai';
 
 /**
  * System prompt for the AI Companion
@@ -836,10 +836,7 @@ Keep responses under 200 words unless the user specifically asks for more detail
  */
 async function generateAIResponse(userMessage) {
   try {
-    // Check if API key is configured
-    if (!OPENAI_API_KEY || OPENAI_API_KEY === 'your-openai-api-key-here') {
-      return '⚠️ Please configure your OpenAI API key in the config.js file to enable AI functionality. Replace the OPENAI_API_KEY constant with your actual API key.';
-    }
+    console.log('Attempting API call via Vercel...');
 
     // Prepare the conversation history
     const messages = [
@@ -851,24 +848,17 @@ async function generateAIResponse(userMessage) {
       { role: 'user', content: userMessage }
     ];
 
-    const response = await fetch(OPENAI_API_URL, {
+    const response = await fetch(API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`
       },
-      body: JSON.stringify({
-        model: AI_CONFIG.model || 'gpt-3.5-turbo',
-        messages: messages,
-        max_tokens: AI_CONFIG.max_tokens || 500,
-        temperature: AI_CONFIG.temperature || 0.7,
-        stream: false
-      })
+      body: JSON.stringify({ messages })
     });
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      console.error('OpenAI API Error:', errorData);
+      console.error('API Error:', errorData);
       throw new Error(`API request failed: ${response.status} ${response.statusText}`);
     }
 
@@ -877,16 +867,23 @@ async function generateAIResponse(userMessage) {
 
   } catch (error) {
     console.error('Error generating AI response:', error);
+    console.error('Error details:', {
+      message: error.message,
+      status: error.status,
+      statusText: error.statusText
+    });
     
     // Return user-friendly error message
     if (error.message.includes('API key')) {
-      return '⚠️ API key configuration error. Please check your OpenAI API key.';
+      return '⚠️ API key configuration error. Please check your environment variables.';
     } else if (error.message.includes('rate limit')) {
       return '⚠️ Rate limit exceeded. Please wait a moment and try again.';
     } else if (error.message.includes('quota')) {
       return '⚠️ API quota exceeded. Please check your OpenAI account.';
+    } else if (error.message.includes('CORS')) {
+      return '⚠️ CORS error. Please check your browser settings or try a different browser.';
     } else {
-      return '⚠️ Sorry, I encountered an error. Please try again in a moment.';
+      return `⚠️ Sorry, I encountered an error: ${error.message}. Please try again in a moment.`;
     }
   }
 }
