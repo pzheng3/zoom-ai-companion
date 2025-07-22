@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zoom Desktop Client Workspace Prototype</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="os-window">
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="top-bar__left">
+        <div class="traffic-lights">
+          <span class="traffic-light traffic-light--red"></span>
+          <span class="traffic-light traffic-light--yellow"></span>
+          <span class="traffic-light traffic-light--green"></span>
+        </div>
+
+        <img class="zoom-logo" src="assets/zoom-logo.svg" alt="Zoom Logo" />
+      </div>
+      <div class="top-bar__center">
+        <span class="searchbar-nav-group">
+          <button class="top-bar__btn" id="searchbar-back" title="Back">
+            <img src="assets/left.svg" alt="Back" />
+          </button>
+          <button class="top-bar__btn" id="searchbar-forth" title="Forward">
+            <img src="assets/right.svg" alt="Forward" />
+          </button>
+        </span>
+        <div class="search-bar">
+          <div class="search-bar__content">
+            <img src="assets/search.svg" alt="Search" class="search-bar__icon" />
+            <span class="search-bar__label">Search</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="top-bar__right">
+        <button class="top-bar__btn" id="bell-btn" title="Notifications"><img src="assets/bell.svg" alt="Notifications" /></button>
+        <button class="top-bar__btn" id="calendar-btn"><!-- Calendar 图标占位符 --><img src="assets/calendar.svg" alt="Calendar" /></button>
+        <button class="top-bar__btn" id="ai-btn"><!-- AI 图标占位符 --><img src="assets/ai-companion.png" alt="AI" /></button>
+        <button class="top-bar__btn" id="avatar-btn"><!-- 头像占位符 --><img src="assets/avatar.png" alt="Avatar" /></button>
+      </div>
+    </header>
+
+    <div class="main-container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <ul>
+          <li class="sidebar__item active" data-view="home"><img src="assets/home.svg" alt="Home" /><span>Home</span></li>
+          <li class="sidebar__item" data-view="calendar"><img src="assets/calendar.svg" alt="Calendar" /><span>Calendar</span></li>
+          <li class="sidebar__item" data-view="chat"><img src="assets/team-chat.svg" alt="Team Chat" /><span>Team Chat</span></li>
+          <li class="sidebar__item" data-view="phone"><img src="assets/phone.svg" alt="Phone" /><span>Phone</span></li>
+          <li class="sidebar__item" data-view="apps"><img src="assets/apps.svg" alt="Apps" /><span>Apps</span></li>
+          <li class="sidebar__item" data-view="more"><img src="assets/more.svg" alt="More" /><span>More</span></li>
+        </ul>
+        
+        <div class="sidebar__bottom-group">
+          <button class="sidebar__plus-btn" title="Add">
+            <img src="assets/plus.svg" alt="Plus" />
+          </button>
+        </div>
+
+      </nav>
+
+      <!-- Main View -->
+      <main class="main-view main-view--layout" id="main-view">
+        <div class="home-center-group">
+          <div class="home-time" id="home-time">12:00</div>
+          <div class="home-date" id="home-date">Monday, January 1</div>
+          <div class="home-btn-row">
+            <div class="home-btn-col">
+              <button class="home-square-btn" id="btn-new-meeting">
+                <img src="assets/home-btn-meeting.svg" alt="New Meeting" />
+              </button>
+              <div class="home-btn-caption">New Meeting</div>
+            </div>
+            <div class="home-btn-col">
+              <button class="home-square-btn" id="btn-join">
+                <img src="assets/home-btn-plus.svg" alt="Join" />
+              </button>
+              <div class="home-btn-caption">Join</div>
+            </div>
+            <div class="home-btn-col">
+              <button class="home-square-btn" id="btn-schedule">
+                <img src="assets/home-btn-calendar.svg" alt="Schedule" />
+              </button>
+              <div class="home-btn-caption">Schedule</div>
+            </div>
+            <div class="home-btn-col">
+              <button class="home-square-btn" id="btn-share-screen">
+                <img src="assets/home-btn-share.svg" alt="Share Screen" />
+              </button>
+              <div class="home-btn-caption">Share Screen</div>
+            </div>
+          </div>
+          <img class="home-calendar-img" src="assets/home-calendar.png" alt="Calendar" />
+        </div>
+      </main>
+
+      <!-- Right Sidebar / AI Panel -->
+      <aside class="right-sidebar right-sidebar--layout" id="right-sidebar">
+        <!-- AI Chatbot Top Bar -->
+        <div class="ai-top-bar">
+          <div class="ai-top-bar__left">
+            <button class="ai-top-bar__btn" title="More"><img id="ai-hamburger-menu-icon" src="assets/hamburger-menu.svg" alt="More Menu" /></button>
+            <button class="ai-top-bar__btn" title="Create New"><img src="assets/create.svg" alt="Create New" /></button>
+          </div>
+          <div class="ai-top-bar__center">AI Companion</div>
+          <div class="ai-top-bar__right">
+            <button class="ai-top-bar__btn" title="Pop Out"><img src="assets/pop-out.svg" alt="Pop Out" /></button>
+            <button class="ai-top-bar__btn" title="Close"><img src="assets/x.svg" alt="Close" /></button>
+          </div>
+        </div>
+        <!-- AI Chatbot Main Canvas -->
+        <div class="ai-canvas">
+          <div class="ai-canvas__center">
+            <img src="assets/ai-companion-144.png" alt="AI Companion" class="ai-canvas__logo" />
+            <div class="ai-prompt-grid">
+              <button class="ai-prompt-btn">What meetings do I have today?</button>
+              <button class="ai-prompt-btn">Brainstorm ideas for a team bonding activity</button>
+              <button class="ai-prompt-btn">Set my meeting scheduling preferences</button>
+              <button class="ai-prompt-btn">Tell me what I can do with AI Companion</button>
+            </div>
+          </div>
+        </div>
+        <!-- AI Chatbot Prompt Field -->
+        <div class="ai-prompt-field">
+          <div class="ai-prompt-compose-box">
+            <textarea class="ai-prompt-input" placeholder="Write a message or type ”/“  for more" rows="1"></textarea>
+            <div class="ai-prompt-actions">
+              <div class="ai-prompt-actions__left">
+                <button class="ai-prompt-field__btn" title="Attach"><img src="assets/paper-clip.svg" alt="Attach" /></button>
+                <button class="ai-prompt-field__btn" title="Plus"><img src="assets/plus.svg" alt="Plus" /></button>
+              </div>
+              <div class="ai-prompt-actions__right">
+                <button class="ai-prompt-field__btn ai-prompt-field__btn--send" disabled title="Send"><img src="assets/arrow.svg" alt="Send" /></button>
+              </div>
+            </div>
+          </div>
+          <div class="ai-prompt-caption">AI can make mistakes. Review for accuracy.</div>
+        </div>
+      </aside>
+    </div>
+    <div class="resize-handle resize-handle--n"></div>
+    <div class="resize-handle resize-handle--ne"></div>
+    <div class="resize-handle resize-handle--e"></div>
+    <div class="resize-handle resize-handle--se"></div>
+    <div class="resize-handle resize-handle--s"></div>
+    <div class="resize-handle resize-handle--sw"></div>
+    <div class="resize-handle resize-handle--w"></div>
+    <div class="resize-handle resize-handle--nw"></div>
+  </div>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html> 
