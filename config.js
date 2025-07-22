@@ -9,7 +9,7 @@
  */
 
 // Replace this with your actual OpenAI API key
-const OPENAI_API_KEY = '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';
+const OPENAI_API_KEY = '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';
 
 // You can also customize the AI model and settings here
 const AI_CONFIG = {
